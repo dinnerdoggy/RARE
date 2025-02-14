@@ -1,4 +1,4 @@
-﻿namespace RARE.Models;
+﻿namespace RARE;
 
     public class Post
     {
