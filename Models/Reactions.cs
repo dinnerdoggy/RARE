@@ -1,4 +1,4 @@
-namespace Rare;
+namespace RARE;
 
 
 public class Reactions
