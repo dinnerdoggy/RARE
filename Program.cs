@@ -1,6 +1,3 @@
-
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Hosting;
 using RARE;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +21,7 @@ app.UseHttpsRedirection();
 
 // DRY variables
 List<Category> categoriesList = CategoryData.categoryData;
+List<PostReaction> postReactions = PostReactionObjects.PostReactionsList;
 
 
 //users Endpoints
@@ -63,7 +61,10 @@ app.MapGet("/post/{user_id}", (int user_id) =>
 
 
 //PostReactions Endpoints
-
+app.MapGet("/postreactions", () =>
+{
+    return postReactions;
+});
 
 
 
@@ -71,7 +72,10 @@ app.MapGet("/post/{user_id}", (int user_id) =>
 
 
 //PostTags Endpoints
-
+app.MapGet("/posttags", () =>
+{
+    return postReactions;
+});
 
 
 
