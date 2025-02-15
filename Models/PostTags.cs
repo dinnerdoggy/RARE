@@ -30,7 +30,7 @@ public class PostTagObjects
         Tag_Id = 4,
     };
 
-    public static List<PostTags> tags = new List<PostTags>
+    public static List<PostTags> postTagsList = new List<PostTags>
         {postTag1, postTag2, postTag3};
 }
 

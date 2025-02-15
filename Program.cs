@@ -23,6 +23,9 @@ app.UseHttpsRedirection();
 List<Category> categoriesList = CategoryData.categoryData;
 List<PostReaction> postReactions = PostReactionObjects.PostReactionsList;
 List<Comment> commentsList = CommentData.commentsData;
+List<PostTags> postTagsList = PostTagObjects.postTagsList;
+List<Reactions> reactionsList = ReactionsObj.reactions;
+List<Subscription> subsList = SubscriptionObj.subscriptions;
 
 
 //users Endpoints
@@ -75,7 +78,7 @@ app.MapGet("/postreactions", () =>
 //PostTags Endpoints
 app.MapGet("/posttags", () =>
 {
-    return postReactions;
+    return postTagsList;
 });
 
 
@@ -117,7 +120,10 @@ app.MapPost("/categories", (Category category) =>
 
 
 //Reactions Endpoints
-
+app.MapGet("/reactions", () =>
+{
+    return reactionsList;
+});
 
 
 
@@ -135,6 +141,10 @@ app.MapGet("/tags", () =>
 
 
 //Subscriptions Endpoints
+app.MapGet("/subscriptions", () =>
+{
+    return subsList;
+});
 
 
 app.Run();
