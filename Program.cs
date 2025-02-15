@@ -81,10 +81,27 @@ app.MapGet("/post/{user_id}", (int user_id) =>
 
 app.MapGet("/comments", () => 
 {
-    return CommentData.commentsData;
+    return CommentData.comments;
 });
 
+/*app.MapPut("/comment/{id}", (int id, CommentData commentData) => 
+{
+   CommentData commentToUpdate = CommentData.comments.FirstOrDefault(c => c.Id == id);
+   //int commentIndex = CommentData.commentsData.IndexOf(commentToUpdate);
+    if (commentToUpdate == null)
+    {
+        return Results.NotFound();
+    }
+    
+     int commentIndex = CommentData.comments.IndexOf(commentToUpdate);
 
+    if (id != CommentData.Id)
+    {
+        return Results.BadRequest();
+    }
+    CommentData.comments[commentIndex] = commentToUpdate;
+        return Results.Ok(commentToUpdate);
+});*/
 
 
 //Catagories Endpoints
