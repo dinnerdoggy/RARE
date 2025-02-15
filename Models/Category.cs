@@ -7,7 +7,7 @@ public class Category
 }
 public class CategoryData
 {
-    List<Category> categoryData = new List<Category>
+    public static List<Category> categoryData = new List<Category>
     {
         new Category
         {
