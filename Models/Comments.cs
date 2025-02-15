@@ -10,7 +10,7 @@ public class Comment
 
 public class CommentData
 {
-    List<Comment> commentsData = new List<Comment>
+    public static List<Comment> commentsData = new List<Comment>
     {
         new Comment
         {   Id = 600,
