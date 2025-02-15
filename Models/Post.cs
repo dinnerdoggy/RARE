@@ -13,7 +13,7 @@
 
 public class PostData
 {
-    List<Post> postDatas = new List<Post>
+    public static List<Post> postDatas = new List<Post>
     {
         new Post
         {
