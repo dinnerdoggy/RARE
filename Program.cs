@@ -18,6 +18,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+
+// DRY variables
+List<Category> categoriesList = CategoryData.categoryData;
+
+
 //users Endpoints
 app.MapGet("users", () =>
 {
@@ -68,9 +73,11 @@ app.MapGet("/categories", () =>
     return CategoryData.categoryData;
 });
 
-app.MapPost("/categories", () =>
+app.MapPost("/categories", (Category category) =>
 {
-
+    category.Id = categoriesList.Max(c => c.Id) + 1;
+    categoriesList.Add(category);
+    return category;
 });
 
 
