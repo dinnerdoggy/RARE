@@ -61,7 +61,12 @@ app.MapGet("users", () =>
 
 
 //Comments Endpoints
-
+app.MapPost("/comments", (Comment comment) =>
+{
+    comment.Id = comments.Max(c => c.Id) + 1;
+    comments.Add(comment);
+    return comment;
+});
 
 
 
