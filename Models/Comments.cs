@@ -26,14 +26,14 @@ public class CommentData
         },
         new Comment
         {
-            Id = 603,
+            Id = 602,
             Author_Id = 101,
             Post_Id = 5,
             Content = "I've been there, pretty amazing"
         },
         new Comment
         {
-            Id = 604,
+            Id = 603,
             Author_Id = 103,
             Post_Id = 5,
             Content = "On my way there now"
