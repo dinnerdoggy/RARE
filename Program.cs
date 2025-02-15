@@ -1,4 +1,5 @@
 using RARE;
+using System.Xml.Linq;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +30,7 @@ List<Subscription> subsList = SubscriptionObj.subscriptions;
 List<Tags> tagsList = TagsObj.tags;
 List<Post> postsList = PostData.postDatas;
 List<User> usersList = UserObjects.UserList;
+List<Post> postList = PostData.postDatas;
 
 
 //users Endpoints
@@ -64,6 +66,12 @@ app.MapGet("/post/{user_id}", (int user_id) =>
         return Results.Ok(userPosts);
 });
 
+app.MapPost("/posts", (Post post) =>
+{
+    post.Id = postList.Max(p => p.Id) +1;
+    postList.Add(post);
+    return post;
+});
 app.MapGet("/posts/user/{id}", (int id) =>
 {
     List<Post> usersPosts = postsList
@@ -72,6 +80,19 @@ app.MapGet("/posts/user/{id}", (int id) =>
     return usersPosts;
 });
 
+app.MapPut("/posts/{id}", (int id, Post post) =>
+{
+    Post postToUpdate =
+    postList.FirstOrDefault(p => p.Id == id);
+    int postIndex = postList.IndexOf(postToUpdate);
+    if (postToUpdate == null)
+    {
+        return Results.NotFound();
+    }
+    postList[postIndex] =
+    post;
+    return Results.Ok();
+});
 app.MapDelete("/posts/{id}", (int id) =>
 {
     Post post = postsList.FirstOrDefault(p => p.Id == id);
