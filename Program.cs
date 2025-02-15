@@ -24,7 +24,10 @@ app.UseHttpsRedirection();
 
 //users Endpoints
 
-
+app.MapGet("/users", () => 
+{
+    return UserObjects.UserList;
+});
 
 
 
@@ -63,7 +66,10 @@ app.MapGet("/posts", () =>
 
 //Comments Endpoints
 
-
+app.MapGet("/comments", () => 
+{
+    
+});
 
 
 
@@ -92,3 +98,6 @@ app.MapGet("/posts", () =>
 
 
 //Subscriptions Endpoints
+
+
+app.Run();
