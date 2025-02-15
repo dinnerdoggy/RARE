@@ -33,7 +33,7 @@ public class CategoryData
         },
         new Category
         {
-            Id = 505,
+            // Id = 505,
             Label = "Finances"
         }
     };

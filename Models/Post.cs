@@ -18,14 +18,14 @@ namespace RARE;
 
 public class PostData
 {
-    public static void AddPost(Post post)
-    {
-        postDatas.Add(post);
+    //public static void AddPost(Post post)
+    //{
+    //    postDatas.Add(post);
 
-        // Find the matching category and add this post to its list
-        var category = CategoryData.GetCategoryById(post.Category_Id);
-        category?.Posts.Add(post);
-    }
+    //    // Find the matching category and add this post to its list
+    //    var category = CategoryData.GetCategoryById(post.Category_Id);
+    //    category?.Posts.Add(post);
+    //}
 
     public static List<Post> postDatas = new List<Post>
     {
@@ -69,7 +69,6 @@ public class PostData
             Publication_Date = new DateTime(2025, 2, 14),
             Content = "Climate change is wreaking havoc on global food production. This article looks at the challenges farmers face and the strategies being developed to adapt to the shifting climate...",
             Approved = true
-
         },
         new Post
         {
