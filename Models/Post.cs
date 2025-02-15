@@ -93,4 +93,14 @@ public class PostData
         }
 
     };
+
+    internal static object? FirstOrDefault(Func<object, bool> value)
+    {
+        throw new NotImplementedException();
+    }
+
+    internal static List<Post> Where(Func<object, bool> value)
+    {
+        throw new NotImplementedException();
+    }
 }
