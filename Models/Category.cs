@@ -4,6 +4,8 @@ public class Category
 {
     public int Id { get; set; }
     public required string Label { get; set; }
+
+    public List<Post> Posts { get; set; } = new();
 }
 public class CategoryData
 {
@@ -35,5 +37,11 @@ public class CategoryData
             Label = "Finances"
         }
     };
+
+    // Method to get category by Id
+    public static Category? GetCategoryById(int Category_Id)
+    {
+        return categoryData.FirstOrDefault(c => c.Id == Category_Id);
+    }
 }
   
