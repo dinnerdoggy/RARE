@@ -28,6 +28,7 @@ List<Reactions> reactionsList = ReactionsObj.reactions;
 List<Subscription> subsList = SubscriptionObj.subscriptions;
 List<Tags> tagsList = TagsObj.tags;
 List<Post> postsList = PostData.postDatas;
+List<User> usersList = UserObjects.UserList;
 
 
 //users Endpoints
@@ -176,7 +177,7 @@ app.MapPost("/tags", (Tags tag) =>
 app.MapPut("/tags/{id}", (int id, Tags tag) =>
 {
     Tags tagToUpdate = tagsList.FirstOrDefault(st => st.Id == id);
-    int ticketIndex = tagsList.IndexOf(tagToUpdate);
+    int tagIndex = tagsList.IndexOf(tagToUpdate);
     if (tagToUpdate == null)
     {
         return Results.NotFound();
@@ -186,7 +187,7 @@ app.MapPut("/tags/{id}", (int id, Tags tag) =>
     {
         return Results.BadRequest();
     }
-    tagsList[ticketIndex] = tag;
+    tagsList[tagIndex] = tag;
     return Results.Ok();
 });
 
@@ -194,6 +195,50 @@ app.MapPut("/tags/{id}", (int id, Tags tag) =>
 app.MapGet("/subscriptions", () =>
 {
     return subsList;
+});
+
+app.MapGet("/posts/subscriptions/{id}", (int id) =>
+{
+    List<Post> followersPosts = postsList
+    .Where(post => post.User_Id == id)
+    .ToList();
+    return followersPosts;
+});
+
+app.MapPut("/subscriptions/{subscriptionId}/follower/{userId}", (int subscriptionId, int userId) =>
+{
+    Subscription subscription = subsList.FirstOrDefault(s => s.Id == subscriptionId);
+
+    if (subscription == null)
+    {
+        return Results.NotFound("Subscription not found.");
+    }
+
+    User user = usersList.FirstOrDefault(u => u.Id == userId);
+
+    if (user == null)
+    {
+        return Results.NotFound("User not found.");
+    }
+
+    // Update Follower_Id to match the User's Id
+    subscription.Follower_id = user.Id;
+
+    return Results.Ok(subscription);
+});
+
+app.MapDelete("/subscriptions/{subscriptionId}", (int subscriptionId) =>
+{
+    var subscription = subsList.FirstOrDefault(s => s.Id == subscriptionId);
+
+    if (subscription == null)
+    {
+        return Results.NotFound("Subscription not found.");
+    }
+
+    subsList.Remove(subscription);
+
+    return Results.NoContent();
 });
 
 

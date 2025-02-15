@@ -18,7 +18,7 @@ public class SubscriptionObj
     public static Subscription subscription1 = new Subscription
     {
         Id = 1001,
-        Follower_id = 2001,
+        Follower_id = 101,
         Author_id = 3001,
         Created_on = DateTime.Now,
     };
@@ -26,7 +26,7 @@ public class SubscriptionObj
     public static Subscription subscription2 = new Subscription
     {
         Id = 1002,
-        Follower_id = 2002,
+        Follower_id = 102,
         Author_id = 3002,
         Created_on = DateTime.Now,
     };
@@ -34,7 +34,7 @@ public class SubscriptionObj
     public static Subscription subscription3 = new Subscription
     {
         Id = 1003,
-        Follower_id = 2003,
+        Follower_id = 103,
         Author_id = 3003,
         Created_on = DateTime.Now,
     };
