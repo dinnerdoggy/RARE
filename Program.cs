@@ -1,5 +1,4 @@
 using RARE;
-using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,21 +18,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+//users Endpoints
 app.MapGet("users", () =>
 {
     return UserObjects.UserList;
 });
-
-app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
-
-
-//users Endpoints
-
 
 
 
@@ -74,9 +63,15 @@ record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 
 
 //Catagories Endpoints
+app.MapGet("/categories", () =>
+{
+    return CategoryData.categoryData;
+});
 
+app.MapPost("/categories", () =>
+{
 
-
+});
 
 
 
@@ -97,3 +92,4 @@ record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 
 
 //Subscriptions Endpoints
+app.Run();
