@@ -1,3 +1,5 @@
+using RARE;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -42,3 +44,70 @@ record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 {
     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 }
+
+
+//users Endpoints
+
+
+
+
+
+
+
+
+
+
+//Posts Endpoints
+
+
+
+
+
+
+
+//PostReactions Endpoints
+
+
+
+
+
+
+
+//PostTags Endpoints
+
+
+
+
+
+
+//Comments Endpoints
+
+
+
+
+
+
+//Catagories Endpoints
+
+
+
+
+
+
+
+//Reactions Endpoints
+
+
+
+
+
+
+//Tags Endpoints
+
+
+
+
+
+
+
+//Subscriptions Endpoints
