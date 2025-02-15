@@ -91,8 +91,17 @@ app.MapPost("/comments", (Comment comment) =>
     return comment;
 });
 
-
-
+app.MapDelete("/comments/{id}", (int id) =>
+{ 
+    Comment comment =
+    commentsList.Find(c => c.Id == id);
+    if (comment == null)
+    {
+        return Results.NotFound();
+    }
+    commentsList.Remove(comment);
+    return Results.Ok();
+});
 
 
 //Catagories Endpoints
