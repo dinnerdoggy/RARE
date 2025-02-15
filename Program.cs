@@ -1,3 +1,6 @@
+
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Hosting;
 using RARE;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,8 +42,22 @@ app.MapGet("users", () =>
 
 //Posts Endpoints
 
+app.MapGet("/posts", () => 
+{
+  
+    return PostData.postDatas;
+});
 
-
+app.MapGet("/post/{user_id}", (int user_id) => 
+{
+    var userPosts = PostData.postDatas.FirstOrDefault(p => p.User_Id == user_id);
+    if (userPosts == null)
+    {
+        return Results.NotFound();
+    }
+        
+        return Results.Ok(userPosts);
+});
 
 
 
@@ -61,6 +78,11 @@ app.MapGet("users", () =>
 
 
 //Comments Endpoints
+
+app.MapGet("/comments", () => 
+{
+    return CommentData.commentsData;
+});
 app.MapPost("/comments", (Comment comment) =>
 {
     comment.Id = comments.Max(c => c.Id) + 1;
@@ -97,11 +119,16 @@ app.MapPost("/categories", (Category category) =>
 
 //Tags Endpoints
 
-
+app.MapGet("/tags", () => 
+{
+    return TagsObj.tags;
+});
 
 
 
 
 
 //Subscriptions Endpoints
+
+
 app.Run();
