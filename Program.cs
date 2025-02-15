@@ -1,6 +1,3 @@
-
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Hosting;
 using RARE;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +21,11 @@ app.UseHttpsRedirection();
 
 // DRY variables
 List<Category> categoriesList = CategoryData.categoryData;
+List<PostReaction> postReactions = PostReactionObjects.PostReactionsList;
+List<Comment> commentsList = CommentData.commentsData;
+List<PostTags> postTagsList = PostTagObjects.postTagsList;
+List<Reactions> reactionsList = ReactionsObj.reactions;
+List<Subscription> subsList = SubscriptionObj.subscriptions;
 
 
 //users Endpoints
@@ -63,7 +65,10 @@ app.MapGet("/post/{user_id}", (int user_id) =>
 
 
 //PostReactions Endpoints
-
+app.MapGet("/postreactions", () =>
+{
+    return postReactions;
+});
 
 
 
@@ -71,7 +76,10 @@ app.MapGet("/post/{user_id}", (int user_id) =>
 
 
 //PostTags Endpoints
-
+app.MapGet("/posttags", () =>
+{
+    return postTagsList;
+});
 
 
 
@@ -81,27 +89,27 @@ app.MapGet("/post/{user_id}", (int user_id) =>
 
 app.MapGet("/comments", () => 
 {
-    return CommentData.comments;
+    return CommentData.commentsData;
 });
 
-/*app.MapPut("/comment/{id}", (int id, CommentData commentData) => 
+app.MapPost("/comments", (Comment comment) =>
 {
-   CommentData commentToUpdate = CommentData.comments.FirstOrDefault(c => c.Id == id);
-   //int commentIndex = CommentData.commentsData.IndexOf(commentToUpdate);
-    if (commentToUpdate == null)
+    comment.Id = commentsList.Max(c => c.Id) + 1;
+    commentsList.Add(comment);
+    return comment;
+});
+
+app.MapDelete("/comments/{id}", (int id) =>
+{ 
+    Comment comment =
+    commentsList.Find(c => c.Id == id);
+    if (comment == null)
     {
         return Results.NotFound();
     }
-    
-     int commentIndex = CommentData.comments.IndexOf(commentToUpdate);
-
-    if (id != CommentData.Id)
-    {
-        return Results.BadRequest();
-    }
-    CommentData.comments[commentIndex] = commentToUpdate;
-        return Results.Ok(commentToUpdate);
-});*/
+    commentsList.Remove(comment);
+    return Results.Ok();
+});
 
 
 //Catagories Endpoints
@@ -121,7 +129,10 @@ app.MapPost("/categories", (Category category) =>
 
 
 //Reactions Endpoints
-
+app.MapGet("/reactions", () =>
+{
+    return reactionsList;
+});
 
 
 
@@ -139,6 +150,10 @@ app.MapGet("/tags", () =>
 
 
 //Subscriptions Endpoints
+app.MapGet("/subscriptions", () =>
+{
+    return subsList;
+});
 
 
 app.Run();
