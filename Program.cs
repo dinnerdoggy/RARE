@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Hosting;
 using RARE;
@@ -24,6 +23,7 @@ app.UseHttpsRedirection();
 
 // DRY variables
 List<Category> categoriesList = CategoryData.categoryData;
+List<Comment> commentsList = CommentData.commentsData;
 
 
 //users Endpoints
@@ -83,6 +83,14 @@ app.MapGet("/comments", () =>
 {
     return CommentData.commentsData;
 });
+
+app.MapPost("/comments", (Comment comment) =>
+{
+    comment.Id = commentsList.Max(c => c.Id) + 1;
+    commentsList.Add(comment);
+    return comment;
+});
+
 
 
 
