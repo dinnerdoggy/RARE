@@ -11,22 +11,10 @@ namespace RARE;
         public DateTime Publication_Date { get; set; }
         public required string Content { get; set; }
         public Boolean Approved { get; set; }
-
-    // Reference to Category (not stored in DB)
-    public Category? Category => CategoryData.GetCategoryById(Category_Id);
     }
 
 public class PostData
 {
-    //public static void AddPost(Post post)
-    //{
-    //    postDatas.Add(post);
-
-    //    // Find the matching category and add this post to its list
-    //    var category = CategoryData.GetCategoryById(post.Category_Id);
-    //    category?.Posts.Add(post);
-    //}
-
     public static List<Post> postDatas = new List<Post>
     {
         new Post
