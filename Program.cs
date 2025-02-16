@@ -61,6 +61,31 @@ app.MapGet("/post/{user_id}", (int user_id) =>
         return Results.Ok(userPosts);
 });
 
+app.MapGet("/post/by-category/{category_id}", (int category_id) => 
+{
+    //var postsByCategory = PostData.postDatas.FirstOrDefault(p => p.Category_Id == category_id);
+    List<Post> postsByCategory = PostData.postDatas;
+    if (postsByCategory == null)
+    {
+        return Results.NotFound();
+    }
+        
+        postsByCategory = PostData.postDatas.Where(p => p.Category_Id == category_id).ToList();
+         return Results.Ok(postsByCategory);
+});
+
+app.MapGet("/post/by-title/{title}", (string title) => 
+{
+    
+    List<Post> postsByTitle = PostData.postDatas;
+    if (postsByTitle == null)
+    {
+        return Results.NotFound();
+    }
+        
+        postsByTitle = PostData.postDatas.Where(p => p.Title == title).ToList();
+         return Results.Ok(postsByTitle);
+});
 
 
 
@@ -111,6 +136,17 @@ app.MapDelete("/comments/{id}", (int id) =>
     return Results.Ok();
 });
 
+app.MapGet("/comments/{id}", (int id , Comment comment) => 
+{
+    Comment commentToUpdate = commentsList.FirstOrDefault(c => c.Id == id);
+    int commentIndex = commentsList.IndexOf(commentToUpdate);
+    if (commentToUpdate == null)
+    {
+        return Results.NotFound();
+    }
+    commentsList[commentIndex] = comment;
+        return Results.Ok();
+});
 
 //Catagories Endpoints
 app.MapGet("/categories", () =>

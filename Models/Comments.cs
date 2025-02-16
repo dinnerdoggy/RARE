@@ -15,7 +15,7 @@ public class Comment
 
 public class CommentData
 {
-    public static List<Comment> comments {get; set;} = new List<Comment>
+    public static List<Comment> commentsData {get; set;} = new List<Comment>
     {
         new Comment
         {   Id = 600,
