@@ -138,7 +138,7 @@ app.MapDelete("/comments/{id}", (int id) =>
 
 app.MapGet("/comments/{id}", (int id , Comment comment) => 
 {
-    Comment commentToUpdate = commentsList.FirstOrDefault(c => c.Id == id);
+    Comment commentToUpdate = CommentData.FirstOrDefault(c => c.Id == id);
     int commentIndex = commentsList.IndexOf(commentToUpdate);
     if (commentToUpdate == null)
     {
