@@ -66,33 +66,6 @@ app.MapGet("/post/{user_id}", (int user_id) =>
         return Results.Ok(userPosts);
 });
 
-<<<<<<< HEAD
-app.MapGet("/post/by-category/{category_id}", (int category_id) => 
-{
-    //var postsByCategory = PostData.postDatas.FirstOrDefault(p => p.Category_Id == category_id);
-    List<Post> postsByCategory = PostData.postDatas;
-    if (postsByCategory == null)
-    {
-        return Results.NotFound();
-    }
-        
-        postsByCategory = PostData.postDatas.Where(p => p.Category_Id == category_id).ToList();
-         return Results.Ok(postsByCategory);
-});
-
-app.MapGet("/post/by-title/{title}", (string title) => 
-{
-    
-    List<Post> postsByTitle = PostData.postDatas;
-    if (postsByTitle == null)
-    {
-        return Results.NotFound();
-    }
-        
-        postsByTitle = PostData.postDatas.Where(p => p.Title == title).ToList();
-         return Results.Ok(postsByTitle);
-});
-=======
 app.MapPost("/posts", (Post post) =>
 {
     post.Id = postList.Max(p => p.Id) +1;
@@ -127,7 +100,31 @@ app.MapDelete("/posts/{id}", (int id) =>
     return Results.NoContent();
 });
 
->>>>>>> main
+app.MapGet("/post/by-category/{category_id}", (int category_id) => 
+{
+    //var postsByCategory = PostData.postDatas.FirstOrDefault(p => p.Category_Id == category_id);
+    List<Post> postsByCategory = PostData.postDatas;
+    if (postsByCategory == null)
+    {
+        return Results.NotFound();
+    }
+        
+        postsByCategory = PostData.postDatas.Where(p => p.Category_Id == category_id).ToList();
+         return Results.Ok(postsByCategory);
+});
+
+app.MapGet("/post/by-title/{title}", (string title) => 
+{
+    
+    List<Post> postsByTitle = PostData.postDatas;
+    if (postsByTitle == null)
+    {
+        return Results.NotFound();
+    }
+        
+        postsByTitle = PostData.postDatas.Where(p => p.Title == title).ToList();
+         return Results.Ok(postsByTitle);
+});
 
 
 
@@ -182,9 +179,9 @@ app.MapDelete("/comments/{id}", (int id) =>
     return Results.Ok();
 });
 
-app.MapGet("/comments/{id}", (int id , Comment comment) => 
+app.MapPut("/comments/{id}", (int id , Comment comment) => 
 {
-    Comment commentToUpdate = CommentData.FirstOrDefault(c => c.Id == id);
+    Comment commentToUpdate = commentsList.FirstOrDefault(c => c.Id == id);
     int commentIndex = commentsList.IndexOf(commentToUpdate);
     if (commentToUpdate == null)
     {
@@ -250,6 +247,15 @@ app.MapPut("/tags/{id}", (int id, Tags tag) =>
     tagsList[tagIndex] = tag;
     return Results.Ok();
 });
+
+app.MapGet("/posts/tag/{id}", (int id) =>
+{
+    List<Post> tagsPosts = postsList
+    .Where(post => post.User_Id == id)
+    .ToList();
+    return tagsPosts;
+});
+
 
 //Subscriptions Endpoints
 app.MapGet("/subscriptions", () =>
