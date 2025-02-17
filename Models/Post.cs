@@ -43,7 +43,7 @@ public class PostData
             Id = 3,
             User_Id = 103,
             Category_Id = 502,
-            Title = "The Evolution of Social Media: What's Next?",
+            Title = "The Evolution of Social Media",
             Publication_Date = new DateTime(2025, 2, 13),
             Content = "Social media platforms are evolving at a rapid pace. In this piece, we examine the changing dynamics of online communication and what we can expect in the future...",
             Approved = true

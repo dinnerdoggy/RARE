@@ -32,7 +32,6 @@ List<Post> postsList = PostData.postDatas;
 List<User> usersList = UserObjects.UserList;
 List<Post> postList = PostData.postDatas;
 
-
 //users Endpoints
 app.MapGet("users", () =>
 {
@@ -112,7 +111,6 @@ app.MapGet("/post/by-category/{category_id}", (int category_id) =>
         postsByCategory = PostData.postDatas.Where(p => p.Category_Id == category_id).ToList();
          return Results.Ok(postsByCategory);
 });
-
 app.MapGet("/post/by-title/{title}", (string title) => 
 {
     
@@ -248,12 +246,22 @@ app.MapPut("/tags/{id}", (int id, Tags tag) =>
     return Results.Ok();
 });
 
-app.MapGet("/posts/tag/{id}", (int id) =>
+app.MapGet("/post/by-tag/{tagId}", (int tagId) =>
 {
-    List<Post> tagsPosts = postsList
-    .Where(post => post.User_Id == id)
-    .ToList();
-    return tagsPosts;
+    // Gets the PostTags with the Tag_Id
+    var matchingPostTags = postTagsList
+        .Where(postTag => postTag.Tag_Id == tagId)
+        .ToList();
+
+    // Takes the PostTags and gets Post Ids
+    var postIds = matchingPostTags.Select(postTag => postTag.Post_Id).ToList();
+
+    // Uses PostIds to filter the actual posts by post_id
+    var postsForTag = PostData.postDatas
+        .Where(post => postIds.Contains(post.Id))  
+        .ToList();
+
+    return postsForTag;
 });
 
 
