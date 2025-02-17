@@ -38,14 +38,6 @@ app.MapGet("users", () =>
     return UserObjects.UserList;
 });
 
-
-
-
-
-
-
-
-
 //Posts Endpoints
 
 app.MapGet("/posts", () => 
@@ -101,7 +93,6 @@ app.MapDelete("/posts/{id}", (int id) =>
 
 app.MapGet("/post/by-category/{category_id}", (int category_id) => 
 {
-    //var postsByCategory = PostData.postDatas.FirstOrDefault(p => p.Category_Id == category_id);
     List<Post> postsByCategory = PostData.postDatas;
     if (postsByCategory == null)
     {
@@ -124,18 +115,11 @@ app.MapGet("/post/by-title/{title}", (string title) =>
          return Results.Ok(postsByTitle);
 });
 
-
-
 //PostReactions Endpoints
 app.MapGet("/postreactions", () =>
 {
     return postReactions;
 });
-
-
-
-
-
 
 //PostTags Endpoints
 app.MapGet("/posttags", () =>
@@ -148,8 +132,6 @@ app.MapDelete("/posttags/{id}", (int id) =>
 {
     postTagsList.RemoveAll(t => t.Post_Id == id);
 });
-
-
 
 //Comments Endpoints
 
@@ -202,21 +184,13 @@ app.MapPost("/categories", (Category category) =>
     return category;
 });
 
-
-
-
 //Reactions Endpoints
 app.MapGet("/reactions", () =>
 {
     return reactionsList;
 });
 
-
-
-
-
 //Tags Endpoints
-
 app.MapGet("/tags", () => 
 {
     return TagsObj.tags;
@@ -263,7 +237,6 @@ app.MapGet("/post/by-tag/{tagId}", (int tagId) =>
 
     return postsForTag;
 });
-
 
 //Subscriptions Endpoints
 app.MapGet("/subscriptions", () =>
