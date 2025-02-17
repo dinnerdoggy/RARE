@@ -32,20 +32,11 @@ List<Post> postsList = PostData.postDatas;
 List<User> usersList = UserObjects.UserList;
 List<Post> postList = PostData.postDatas;
 
-
 //users Endpoints
 app.MapGet("users", () =>
 {
     return UserObjects.UserList;
 });
-
-
-
-
-
-
-
-
 
 //Posts Endpoints
 
@@ -100,19 +91,35 @@ app.MapDelete("/posts/{id}", (int id) =>
     return Results.NoContent();
 });
 
-
-
+app.MapGet("/post/by-category/{category_id}", (int category_id) => 
+{
+    List<Post> postsByCategory = PostData.postDatas;
+    if (postsByCategory == null)
+    {
+        return Results.NotFound();
+    }
+        
+        postsByCategory = PostData.postDatas.Where(p => p.Category_Id == category_id).ToList();
+         return Results.Ok(postsByCategory);
+});
+app.MapGet("/post/by-title/{title}", (string title) => 
+{
+    
+    List<Post> postsByTitle = PostData.postDatas;
+    if (postsByTitle == null)
+    {
+        return Results.NotFound();
+    }
+        
+        postsByTitle = PostData.postDatas.Where(p => p.Title == title).ToList();
+         return Results.Ok(postsByTitle);
+});
 
 //PostReactions Endpoints
 app.MapGet("/postreactions", () =>
 {
     return postReactions;
 });
-
-
-
-
-
 
 //PostTags Endpoints
 app.MapGet("/posttags", () =>
@@ -125,8 +132,6 @@ app.MapDelete("/posttags/{id}", (int id) =>
 {
     postTagsList.RemoveAll(t => t.Post_Id == id);
 });
-
-
 
 //Comments Endpoints
 
@@ -154,6 +159,17 @@ app.MapDelete("/comments/{id}", (int id) =>
     return Results.Ok();
 });
 
+app.MapPut("/comments/{id}", (int id , Comment comment) => 
+{
+    Comment commentToUpdate = commentsList.FirstOrDefault(c => c.Id == id);
+    int commentIndex = commentsList.IndexOf(commentToUpdate);
+    if (commentToUpdate == null)
+    {
+        return Results.NotFound();
+    }
+    commentsList[commentIndex] = comment;
+        return Results.Ok();
+});
 
 //Catagories Endpoints
 app.MapGet("/categories", () =>
@@ -168,21 +184,13 @@ app.MapPost("/categories", (Category category) =>
     return category;
 });
 
-
-
-
 //Reactions Endpoints
 app.MapGet("/reactions", () =>
 {
     return reactionsList;
 });
 
-
-
-
-
 //Tags Endpoints
-
 app.MapGet("/tags", () => 
 {
     return TagsObj.tags;
@@ -210,6 +218,24 @@ app.MapPut("/tags/{id}", (int id, Tags tag) =>
     }
     tagsList[tagIndex] = tag;
     return Results.Ok();
+});
+
+app.MapGet("/post/by-tag/{tagId}", (int tagId) =>
+{
+    // Gets the PostTags with the Tag_Id
+    var matchingPostTags = postTagsList
+        .Where(postTag => postTag.Tag_Id == tagId)
+        .ToList();
+
+    // Takes the PostTags and gets Post Ids
+    var postIds = matchingPostTags.Select(postTag => postTag.Post_Id).ToList();
+
+    // Uses PostIds to filter the actual posts by post_id
+    var postsForTag = PostData.postDatas
+        .Where(post => postIds.Contains(post.Id))  
+        .ToList();
+
+    return postsForTag;
 });
 
 //Subscriptions Endpoints

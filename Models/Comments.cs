@@ -1,4 +1,5 @@
-﻿namespace RARE;
+﻿
+namespace RARE;
 
 public class Comment
 {
@@ -6,11 +7,15 @@ public class Comment
     public int Author_Id { get; set; }
     public int Post_Id { get; set; }
     public required string Content { get; set; }
+
+ 
+
+    
 }
 
 public class CommentData
 {
-    public static List<Comment> commentsData = new List<Comment>
+    public static List<Comment> commentsData {get; set;} = new List<Comment>
     {
         new Comment
         {   Id = 600,
@@ -55,4 +60,9 @@ public class CommentData
         }
 
     };
+
+    internal CommentData FirstOrDefault(Func<object, bool> value)
+    {
+        throw new NotImplementedException();
+    }
 }

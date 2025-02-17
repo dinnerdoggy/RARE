@@ -42,8 +42,8 @@ public class PostData
         {
             Id = 3,
             User_Id = 103,
-            Category_Id = 503,
-            Title = "The Evolution of Social Media: What's Next?",
+            Category_Id = 502,
+            Title = "The Evolution of Social Media",
             Publication_Date = new DateTime(2025, 2, 13),
             Content = "Social media platforms are evolving at a rapid pace. In this piece, we examine the changing dynamics of online communication and what we can expect in the future...",
             Approved = true
@@ -72,6 +72,17 @@ public class PostData
         new Post
         {
             Id = 6,
+            User_Id = 102,
+            Category_Id = 505,
+            Title = "Blockchain: Revolutionizing Financial Systems",
+            Publication_Date = new DateTime(2025, 2, 16),
+            Content = "Blockchain technology is transforming the way we think about money and financial systems. In this article, we explore the applications and potential of blockchain in various industries...",
+            Approved = true
+        },
+
+        new Post 
+        {
+             Id = 7,
             User_Id = 102,
             Category_Id = 505,
             Title = "Blockchain: Revolutionizing Financial Systems",
